@@ -4,7 +4,7 @@ graph = {}
 
 def worker(data):
 
-    node, visited = data
+    node, visited, graph = data
 
     return [n for n in graph[node]
             if n not in visited]
@@ -28,7 +28,7 @@ def bfs(start):
 
             result = pool.map(
                 worker,
-                [(n, visited) for n in queue]
+                [(n, visited, graph) for n in queue]
             )
 
         new = []
@@ -65,12 +65,10 @@ if __name__ == "__main__":
 
     for i in range(nodes):
 
-        neighbors = list(map(
+        graph[i] = list(map(
             int,
             input(f"Enter neighbors of {i}: ").split()
         ))
-
-        graph[i] = neighbors
 
     start = int(input("Enter starting node: "))
 
